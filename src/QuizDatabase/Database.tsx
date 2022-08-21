@@ -344,7 +344,7 @@ const quiz5: QuizType = {
       ],
     },
   ],
-  category: "Religion",
+  category: "politics",
   difficulty: "hard",
 };
-export const quiz: QuizType[] = [quiz1, quiz2, quiz3, quiz4, quiz4, quiz5];
+export const Database: QuizType[] = [quiz1, quiz2, quiz3, quiz4, quiz5];
