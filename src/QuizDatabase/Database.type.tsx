@@ -12,4 +12,6 @@ export type QuizType = {
   questions: Questions[];
   category: string;
   difficulty: string;
+  description:string,
+  image:string
 };

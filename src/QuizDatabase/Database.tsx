@@ -2,6 +2,10 @@ import { QuizType } from "./Database.type";
 
 const quiz1: QuizType = {
   name: "GAME OF THRONES QUIZ",
+  description:
+    "While the main conflict in Game of Thrones is based on the 15th-century conflicts of Europe, it isn't tied to any particular time period. That allows George R.R. Martin to mix history up a little bit, bringing together historical concepts and figures that actually existed centuries apart.",
+  image:
+    "https://img1.hotstarext.com/image/upload/f_auto/sources/r1/cms/prod/4909/474909-h",
   questions: [
     {
       question:
@@ -66,6 +70,10 @@ const quiz1: QuizType = {
 };
 const quiz2: QuizType = {
   name: "INDIAN ECONOMY",
+  description:
+    "The economy of India is a middle income developing market economy.[40] It is the world's fifth-largest economy by nominal GDP and the third-largest by purchasing power parity (PPP). ",
+  image:
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/B7dxcbl4wdg61.jpg/800px-B7dxcbl4wdg61.jpg",
   questions: [
     {
       question: "The central banking functions in India are performed by the? ",
@@ -133,6 +141,9 @@ const quiz2: QuizType = {
 };
 const quiz3: QuizType = {
   name: "Books and authors",
+  description:
+    "An author is the creator or originator of any written work such as a book or play, and is also considered a writer or poet. ",
+  image: "https://offtheshelf.com/app/uploads/2019/12/20-authors-2020_soc.jpg",
   questions: [
     {
       question: "Who wrote the famous book - 'We the people'?",
@@ -194,6 +205,9 @@ const quiz3: QuizType = {
 };
 const quiz4: QuizType = {
   name: "Indian History",
+  description:
+    "India is a country in South Asia whose name comes from the Indus River. ... According to the writings known as the Puranas (religious/historical texts ...",
+  image: "https://www.clearias.com/up/Indian-History.jpg",
   questions: [
     {
       question: "The Battle of Plassey was fought in",
@@ -257,6 +271,9 @@ const quiz4: QuizType = {
 };
 const quiz5: QuizType = {
   name: "Indian Politics",
+  description:
+    ". India is a parliamentary democratic secular republic in which the president of India is the head of state & first citizen of India and the prime minister of India is the head of government.",
+  image: "https://miro.medium.com/max/1200/1*KJZ-B1RrJjhFWzD1vk6RxA.jpeg",
   questions: [
     {
       question:
