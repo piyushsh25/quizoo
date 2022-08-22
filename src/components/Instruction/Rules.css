@@ -1,27 +1,27 @@
-.rules-list{
-    font-size: 1.5rem;
-    text-decoration: none;
+.rules-list {
+  font-size: 1.5rem;
+  text-decoration: none;
 }
-.rules-list ol li{
-    margin: 2%;
+.rules-list ol li {
+  margin: 2%;
 }
-.rules-list .instruction-header{
-    margin: 2%;
-    font-size: 2rem;
-    text-decoration: underline;
+.rules-list .instruction-header {
+  margin: 2%;
+  font-size: 2rem;
+  text-decoration: underline;
 }
-.quiz-details{
-    border-bottom:2px solid red;
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 3%;
+.quiz-details {
+  border-bottom: 2px solid red;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 3%;
 }
-.quiz-cta .cta-link{
-background-color: rgba(29, 247, 40, 0.671);
-width: 6rem;
-padding: 10px 1rem;
-border-radius: 8px;
+.quiz-cta .cta-link {
+  background-color: rgba(29, 247, 40, 0.671);
+  width: 6rem;
+  padding: 10px 1rem;
+  border-radius: 8px;
 }
-.quiz-cta{
-    text-align: center;
+.quiz-cta {
+  text-align: center;
 }

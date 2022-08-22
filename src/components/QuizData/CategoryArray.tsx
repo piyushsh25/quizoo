@@ -1,12 +1,16 @@
 import Card from "react-bootstrap/Card";
 import { Link } from "react-router-dom";
-import { Database } from "../../QuizDatabase/Database";
-import { QuizType } from "../../QuizDatabase/Database.type";
+import { useQuiz } from "../../QuizContext/Database";
+import { QuizType } from "../../QuizContext/Database.type";
+// type Data={
+//   quizData:
+// }
 export const CategoryArray: React.FC = () => {
+  const {quizData} = useQuiz();
   return (
     <div className="category-card-container">
       {" "}
-      {Database.map((quiz: QuizType) => {
+      {quizData?.map((quiz: QuizType) => {
         return (
           <Card className="category-card" key={quiz.name}>
             <Link to="/instruction" state={quiz} className="cta-link">
