@@ -32,7 +32,7 @@ type QuestionHandler = {
     question: string;
     selectedOption: string;
     isRight: boolean | null;
-}[]
+  }[];
 };
 export const nextQuestionHandler = ({
   option,
@@ -42,7 +42,7 @@ export const nextQuestionHandler = ({
   questionIndex,
   setScore,
   navigate,
-  record
+  record,
 }: QuestionHandler) => {
   setRecord((prev) => {
     return [
@@ -54,8 +54,8 @@ export const nextQuestionHandler = ({
       },
     ];
   });
-  if(questionIndex+1===questions.length){
-    navigate("/result",{state:record})
+  if (questionIndex + 1 === questions.length) {
+    navigate("/result", { state: record });
   }
   if (questionIndex + 1 < questions.length) {
     setQuestionIndex((prev) => prev + 1);
