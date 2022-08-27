@@ -1,17 +1,34 @@
 import { QuizData, StateType } from "./Quiz.type";
 import "./Quiz.css";
 import { useState } from "react";
+import { nextQuestionHandler, timeRemaining } from "./QuizController";
+import { useNavigate } from "react-router-dom";
+
 export const QuizBody = ({ state }: QuizData) => {
   const { questions } = state;
   const [questionIndex, setQuestionIndex] =
     useState<StateType["questionIndex"]>(0);
-  function nextQuestionHandler() {
-    setQuestionIndex((prev) => prev + 1);
-  }
+  const [score, setScore] = useState<StateType["score"]>(0);
+  const [timer, setTimer] = useState<StateType["timer"]>(300);
+  const [record, setRecord] = useState<StateType["answerdata"][]>([]);
+  const navigate = useNavigate();
+  setTimeout(() => {
+    if (timer > 0) {
+      setTimer(timer - 1);
+    }
+  }, 1000);
+  const option = {
+    option: "",
+    isRight: null,
+  };
   return (
     <div className="quiz-body-container">
+      <div>score : {score} </div>
+      <div>
+        time: {timeRemaining(timer).minutes}: {timeRemaining(timer).seconds}
+      </div>
       <div className="question-container">
-        {questions[questionIndex].question}
+        ( {questionIndex + 1} ): {questions[questionIndex].question}
       </div>
       <div className="option-container">
         {questions[questionIndex].options.map((option, index) => {
@@ -19,7 +36,18 @@ export const QuizBody = ({ state }: QuizData) => {
             <div
               className="option-individual"
               key={option.option}
-              onClick={nextQuestionHandler}
+              onClick={() =>
+                nextQuestionHandler({
+                  option,
+                  setRecord,
+                  questions,
+                  questionIndex,
+                  setQuestionIndex,
+                  setScore,
+                  navigate,
+                  record,
+                })
+              }
             >
               {index + 1}. {option.option}
             </div>
@@ -27,9 +55,27 @@ export const QuizBody = ({ state }: QuizData) => {
         })}
       </div>
       <div className="button-container">
-        <button className="next-button" onClick={nextQuestionHandler}>
-          Next {"-->"}
-        </button>
+        {questionIndex + 1 === questions.length ? (
+          <button className="next-button">Submit {"-->"}</button>
+        ) : (
+          <button
+            className="next-button"
+            onClick={() =>
+              nextQuestionHandler({
+                option,
+                setRecord,
+                questions,
+                questionIndex,
+                setQuestionIndex,
+                setScore,
+                navigate,
+                record,
+              })
+            }
+          >
+            Skip {"-->"}
+          </button>
+        )}
       </div>
     </div>
   );
