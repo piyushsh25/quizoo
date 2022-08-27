@@ -12,7 +12,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/instruction" element={<Instruction />} />
-          <Route path="/quiz" element={<Quiz/>}/>
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="*" element={<h1>Error. Route not found</h1>} />
         </Routes>
       </BrowserRouter>
     </div>

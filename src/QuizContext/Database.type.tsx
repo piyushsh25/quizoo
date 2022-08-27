@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 // quiz data types
 type Options = {
   option: string;
-  isRight: boolean;
+  isRight: boolean | null;
 };
 type Questions = {
   question: string;
