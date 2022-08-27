@@ -9,7 +9,7 @@ export const QuizBody = ({ state }: QuizData) => {
   const [questionIndex, setQuestionIndex] =
     useState<StateType["questionIndex"]>(0);
   const [score, setScore] = useState<StateType["score"]>(0);
-  const [timer, setTimer] = useState<StateType["timer"]>(10);
+  const [timer, setTimer] = useState<StateType["timer"]>(300);
   const [record, setRecord] = useState<StateType["answerdata"][]>([]);
   const navigate = useNavigate();
   setTimeout(() => {
