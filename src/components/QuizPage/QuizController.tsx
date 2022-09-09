@@ -1,5 +1,4 @@
-import { NavigateFunction } from "react-router-dom";
-import { QuizData, StateType } from "./Quiz.type";
+import { QuestionHandler, StateType } from "./Quiz.type";
 
 export function timeRemaining(timer: StateType["timer"]) {
   let minutes: number | string = Math.floor(timer / 60);
@@ -12,28 +11,6 @@ export function timeRemaining(timer: StateType["timer"]) {
   }
   return { minutes, seconds };
 }
-type QuestionHandler = {
-  option: StateType["option"];
-  setRecord: React.Dispatch<
-    React.SetStateAction<
-      {
-        question: string;
-        selectedOption: string;
-        isRight: boolean | null;
-      }[]
-    >
-  >;
-  questions: QuizData["state"]["questions"];
-  setQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
-  questionIndex: number;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
-  navigate: NavigateFunction;
-  record: {
-    question: string;
-    selectedOption: string;
-    isRight: boolean | null;
-  }[];
-};
 export const nextQuestionHandler = ({
   option,
   setRecord,
@@ -60,7 +37,7 @@ export const nextQuestionHandler = ({
   if (questionIndex + 1 < questions.length) {
     setQuestionIndex((prev) => prev + 1);
   }
-  if (option.option === null) {
+  if (option.isRight === null) {
   } else if (option.isRight) {
     setScore((prev) => prev + 10);
   } else if (option.isRight === false) {
