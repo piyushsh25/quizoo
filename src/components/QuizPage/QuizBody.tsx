@@ -21,8 +21,8 @@ export const QuizBody = ({ state }: QuizData) => {
     option: "",
     isRight: null,
   };
-  if(timer===0){
-    navigate("/result")
+  if (timer === 0) {
+    navigate("/result");
   }
   return (
     <div className="quiz-body-container">
@@ -58,27 +58,24 @@ export const QuizBody = ({ state }: QuizData) => {
         })}
       </div>
       <div className="button-container">
-        {questionIndex + 1 === questions.length ? (
-          <button className="next-button">Submit {"-->"}</button>
-        ) : (
-          <button
-            className="next-button"
-            onClick={() =>
-              nextQuestionHandler({
-                option,
-                setRecord,
-                questions,
-                questionIndex,
-                setQuestionIndex,
-                setScore,
-                navigate,
-                record,
-              })
-            }
-          >
-            Skip {"-->"}
-          </button>
-        )}
+       
+        <button
+          className="next-button"
+          onClick={() =>
+            nextQuestionHandler({
+              option,
+              setRecord,
+              questions,
+              questionIndex,
+              setQuestionIndex,
+              setScore,
+              navigate,
+              record,
+            })
+          }
+        >
+         {(questionIndex + 1 === questions.length )?"Submitt":"Next"}  
+        </button>
       </div>
     </div>
   );

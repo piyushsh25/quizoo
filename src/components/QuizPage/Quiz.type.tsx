@@ -1,3 +1,4 @@
+import { NavigateFunction } from "react-router-dom";
 import { QuizType } from "../../QuizContext/Database.type";
 
 export type QuizData = {
@@ -16,4 +17,26 @@ export type StateType = {
   };
   score: number;
   timer:number
+};
+export type QuestionHandler = {
+  option: StateType["option"];
+  setRecord: React.Dispatch<
+    React.SetStateAction<
+      {
+        question: string;
+        selectedOption: string;
+        isRight: boolean | null;
+      }[]
+    >
+  >;
+  questions: QuizData["state"]["questions"];
+  setQuestionIndex: React.Dispatch<React.SetStateAction<number>>;
+  questionIndex: number;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  navigate: NavigateFunction;
+  record: {
+    question: string;
+    selectedOption: string;
+    isRight: boolean | null;
+  }[];
 };
