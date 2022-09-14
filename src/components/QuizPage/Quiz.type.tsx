@@ -7,16 +7,15 @@ export type QuizData = {
 export type StateType = {
   questionIndex: number;
   option: {
-    option: string;
-    isRight: boolean | null;
+    option: string | null;
   };
   answerdata: {
     question: string;
-    selectedOption: string;
-    isRight: boolean | null;
+    selectedOption: string | null;
+    rightAnswer:string | null
   };
   score: number;
-  timer:number
+  timer: number;
 };
 export type QuestionHandler = {
   option: StateType["option"];
@@ -24,8 +23,8 @@ export type QuestionHandler = {
     React.SetStateAction<
       {
         question: string;
-        selectedOption: string;
-        isRight: boolean | null;
+        selectedOption: string | null;
+        rightAnswer:string | null
       }[]
     >
   >;
@@ -36,7 +35,7 @@ export type QuestionHandler = {
   navigate: NavigateFunction;
   record: {
     question: string;
-    selectedOption: string;
-    isRight: boolean | null;
+    selectedOption: string | null;
+    rightAnswer:string | null
   }[];
 };

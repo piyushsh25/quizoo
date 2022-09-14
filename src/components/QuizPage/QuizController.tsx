@@ -21,26 +21,29 @@ export const nextQuestionHandler = ({
   navigate,
   record,
 }: QuestionHandler) => {
+  setQuestionIndex((prev) => prev + 1);
+  const [correctAnswer] = questions[questionIndex].options.filter((option) => {
+    return option.isRight === true;
+  });
+
   setRecord((prev) => {
     return [
       ...prev,
       {
         question: questions[questionIndex].question,
         selectedOption: option.option,
-        isRight: option.isRight,
+        rightAnswer: correctAnswer.option,
       },
     ];
   });
-  if (questionIndex + 1 === questions.length) {
-    navigate("/result", { state: record });
-  }
-  if (questionIndex + 1 < questions.length) {
-    setQuestionIndex((prev) => prev + 1);
-  }
-  if (option.isRight === null) {
-  } else if (option.isRight) {
-    setScore((prev) => prev + 10);
-  } else if (option.isRight === false) {
-    setScore((prev) => prev - 5);
-  }
 };
+export function calculateScore(
+  setScore: QuestionHandler["setScore"],
+  record: QuestionHandler["record"]
+) {
+  const calculateTotalScore = (score: number, num: StateType["answerdata"]) => {
+    return num.rightAnswer === num.selectedOption ? score + 10 : score - 5;
+  };
+  const totalScore = record.reduce(calculateTotalScore, 0);
+  return totalScore;
+}

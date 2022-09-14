@@ -1,7 +1,7 @@
 import { QuizData, StateType } from "./Quiz.type";
 import "./Quiz.css";
-import { useState } from "react";
-import { nextQuestionHandler, timeRemaining } from "./QuizController";
+import { useEffect, useState } from "react";
+import { calculateScore, nextQuestionHandler, timeRemaining } from "./QuizController";
 import { useNavigate } from "react-router-dom";
 
 export const QuizBody = ({ state }: QuizData) => {
@@ -11,22 +11,23 @@ export const QuizBody = ({ state }: QuizData) => {
   const [score, setScore] = useState<StateType["score"]>(0);
   const [timer, setTimer] = useState<StateType["timer"]>(300);
   const [record, setRecord] = useState<StateType["answerdata"][]>([]);
+  const [selectedOption, setSelectedOption] =
+    useState<StateType["answerdata"]["selectedOption"]>(null);
   const navigate = useNavigate();
   setTimeout(() => {
     if (timer > 0) {
       setTimer(timer - 1);
     }
   }, 1000);
-  const option = {
-    option: "",
-    isRight: null,
-  };
   if (timer === 0) {
     navigate("/result");
   }
+  const option={
+    option:selectedOption
+  }
   return (
     <div className="quiz-body-container">
-      <div>score : {score} </div>
+      <div>score : {calculateScore(setScore,record)} </div>
       <div>
         time: {timeRemaining(timer).minutes}: {timeRemaining(timer).seconds}
       </div>
@@ -36,29 +37,17 @@ export const QuizBody = ({ state }: QuizData) => {
       <div className="option-container">
         {questions[questionIndex].options.map((option, index) => {
           return (
-            <div
+            <button
               className="option-individual"
               key={option.option}
-              onClick={() =>
-                nextQuestionHandler({
-                  option,
-                  setRecord,
-                  questions,
-                  questionIndex,
-                  setQuestionIndex,
-                  setScore,
-                  navigate,
-                  record,
-                })
-              }
+              onClick={(e) => setSelectedOption(option.option)}
             >
               {index + 1}. {option.option}
-            </div>
+            </button>
           );
         })}
       </div>
       <div className="button-container">
-       
         <button
           className="next-button"
           onClick={() =>
@@ -66,15 +55,15 @@ export const QuizBody = ({ state }: QuizData) => {
               option,
               setRecord,
               questions,
-              questionIndex,
               setQuestionIndex,
+              questionIndex,
               setScore,
               navigate,
-              record,
+              record
             })
           }
         >
-         {(questionIndex + 1 === questions.length )?"Submitt":"Next"}  
+          {questionIndex + 1 === questions.length ? "Submitt" : "Next"}
         </button>
       </div>
     </div>
