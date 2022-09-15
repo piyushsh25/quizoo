@@ -1,7 +1,11 @@
-import { QuizData, StateType } from "./Quiz.type";
+import { QuestionHandler, QuizData, StateType } from "./Quiz.type";
 import "./Quiz.css";
 import { useEffect, useState } from "react";
-import { calculateScore, nextQuestionHandler, timeRemaining } from "./QuizController";
+import {
+  calculateScore,
+  nextQuestionHandler,
+  timeRemaining,
+} from "./QuizController";
 import { useNavigate } from "react-router-dom";
 
 export const QuizBody = ({ state }: QuizData) => {
@@ -22,12 +26,46 @@ export const QuizBody = ({ state }: QuizData) => {
   if (timer === 0) {
     navigate("/result");
   }
-  const option={
-    option:selectedOption
-  }
+  const option = {
+    option: selectedOption,
+  };
+  const submitQuestionHandler = ({
+    option,
+    setRecord,
+    questions,
+    setQuestionIndex,
+    questionIndex,
+    setScore,
+    navigate,
+    record,
+  }: QuestionHandler) => {
+    const [correctAnswer] = questions[questionIndex].options.filter(
+      (option) => {
+        return option.isRight === true;
+      }
+    );
+    setQuestionIndex((prev)=>prev+1)
+    setRecord((prev) => {
+      return [
+        ...prev,
+        {
+          question: questions[questionIndex].question,
+          selectedOption: option.option,
+          rightAnswer: correctAnswer.option,
+        },
+      ];
+    });
+   
+  };
+  useEffect(() => {
+    if (questionIndex=== questions.length) {
+      console.log(record);
+    }
+  });
+
   return (
     <div className="quiz-body-container">
-      <div>score : {calculateScore(setScore,record)} </div>
+      <div>score : {calculateScore(setScore, record)} </div>
       <div>
         time: {timeRemaining(timer).minutes}: {timeRemaining(timer).seconds}
       </div>
@@ -48,23 +86,43 @@ export const QuizBody = ({ state }: QuizData) => {
         })}
       </div>
       <div className="button-container">
-        <button
-          className="next-button"
-          onClick={() =>
-            nextQuestionHandler({
-              option,
-              setRecord,
-              questions,
-              setQuestionIndex,
-              questionIndex,
-              setScore,
-              navigate,
-              record
-            })
-          }
-        >
-          {questionIndex + 1 === questions.length ? "Submitt" : "Next"}
-        </button>
+        {!(questionIndex + 1 === questions.length) ? (
+          <button
+            className="next-button"
+            onClick={() =>
+              nextQuestionHandler({
+                option,
+                setRecord,
+                questions,
+                setQuestionIndex,
+                questionIndex,
+                setScore,
+                navigate,
+                record,
+              })
+            }
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            className="next-button"
+            onClick={() =>
+              submitQuestionHandler({
+                option,
+                setRecord,
+                questions,
+                setQuestionIndex,
+                questionIndex,
+                setScore,
+                navigate,
+                record,
+              })
+            }
+          >
+            Submitt
+          </button>
+        )}
       </div>
     </div>
   );
