@@ -8,7 +8,7 @@ import { useResult } from "../../Hooks/ResultContext/ResultContext";
 export const Instruction: React.FC = () => {
   const location = useLocation();
   const { state } = location as LocationState;
-  const {showResult,setShowResult,setQuestionIndex,setScore,setSelectedOption,setRecord}=useResult()
+  const {showResult,setShowResult,setQuestionIndex,setScore,setSelectedOption,setRecord,setTimer}=useResult()
   // every value being set to default in the instruction page so that the quiz cannot be resumed after quitting
   useEffect(()=>{
     setShowResult(false)

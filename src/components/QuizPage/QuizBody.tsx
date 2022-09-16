@@ -25,14 +25,10 @@ export const QuizBody = ({ state }: QuizData) => {
     setShowResult,
     showResult,
   } = useResult();
-  // const [questionIndex, setQuestionIndex] =
-  //   useState<StateType["questionIndex"]>(0);
-  // const [score, setScore] = useState<StateType["score"]>(0);
-  // const [timer, setTimer] = useState<StateType["timer"]>(300);
-  // const [record, setRecord] = useState<StateType["answerdata"][]>([]);
-  // const [selectedOption, setSelectedOption] =
-  //   useState<StateType["answerdata"]["selectedOption"]>(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    setTimer(300);
+  }, []);
   setTimeout(() => {
     if (timer > 0) {
       setTimer(timer - 1);
@@ -41,8 +37,6 @@ export const QuizBody = ({ state }: QuizData) => {
       setShowResult(true);
     }
   }, 1000);
-
-  console.log(record)
   return (
     <div className="quiz-body-container">
       <div>score : {calculateScore(setScore, record)} </div>
@@ -71,7 +65,6 @@ export const QuizBody = ({ state }: QuizData) => {
             className="next-button"
             onClick={() =>
               nextQuestionHandler({
-
                 setRecord,
                 questions,
                 setQuestionIndex,
@@ -82,7 +75,7 @@ export const QuizBody = ({ state }: QuizData) => {
                 showResult,
                 setShowResult,
                 selectedOption,
-                setSelectedOption
+                setSelectedOption,
               })
             }
           >
@@ -103,7 +96,7 @@ export const QuizBody = ({ state }: QuizData) => {
                 showResult,
                 setShowResult,
                 selectedOption,
-                setSelectedOption
+                setSelectedOption,
               })
             }
           >
