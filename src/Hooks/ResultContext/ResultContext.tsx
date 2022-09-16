@@ -54,7 +54,7 @@ export const ResultProvider = ({ children }: Children) => {
   const [record, setRecord] = useState<StateType["answerdata"][]>([]);
   const [selectedOption, setSelectedOption] = useState<
     StateType["answerdata"]["selectedOption"]
-  >(() => null);
+  >(null);
   const [showResult, setShowResult] = useState(false);
   return (
     <ResultContext.Provider

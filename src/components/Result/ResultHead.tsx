@@ -9,20 +9,23 @@ function ResultHead({ state }: QuizData) {
     return ans.rightAnswer === ans.selectedOption;
   });
   const nullAnswer = record.filter((ans) => {
-    return ans.selectedOption===null;
+    return ans.selectedOption === null;
   });
-  console.log(nullAnswer)
   return (
-    <div>
+    <div className="result-header">
       <div>{state.name}</div>
       <div> Score: {calculateScore(setScore, record)}</div>
-      <div>Questions: {state.questions.length}</div>
       <div className="category">
         <div>{state.difficulty}</div>
         <div>{state.category}</div>
       </div>
       <div>
-        <div>Correct Answer: {correctAnswer.length}</div>
+        <div>Correct answer: {correctAnswer.length}</div>
+        <div>Unattempted answer: {nullAnswer.length}</div>
+        <div>
+          Incorrect answer:{" "}
+          {record.length - correctAnswer.length - nullAnswer.length}
+        </div>
       </div>
       <div></div>
     </div>
