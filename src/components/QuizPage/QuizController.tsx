@@ -12,7 +12,6 @@ export function timeRemaining(timer: StateType["timer"]) {
   return { minutes, seconds };
 }
 export const nextQuestionHandler = ({
-  option,
   setRecord,
   questions,
   setQuestionIndex,
@@ -20,27 +19,45 @@ export const nextQuestionHandler = ({
   setScore,
   navigate,
   record,
+  setShowResult,
+  showResult,
+  selectedOption,
+  setSelectedOption,
 }: QuestionHandler) => {
+  const [correctAnswer] = questions[questionIndex].options.filter((option) => {
+    return option.isRight === true;
+  });
+
   setRecord((prev) => {
     return [
       ...prev,
       {
         question: questions[questionIndex].question,
-        selectedOption: option.option,
-        isRight: option.isRight,
+        selectedOption: selectedOption,
+        rightAnswer: correctAnswer.option,
       },
     ];
   });
+  setSelectedOption(null);
   if (questionIndex + 1 === questions.length) {
-    navigate("/result", { state: record });
+    setShowResult(true);
   }
-  if (questionIndex + 1 < questions.length) {
-    setQuestionIndex((prev) => prev + 1);
-  }
-  if (option.isRight === null) {
-  } else if (option.isRight) {
-    setScore((prev) => prev + 10);
-  } else if (option.isRight === false) {
-    setScore((prev) => prev - 5);
-  }
+
+  setQuestionIndex((prev) => prev + 1);
 };
+export function calculateScore(
+  setScore: QuestionHandler["setScore"],
+  record: QuestionHandler["record"]
+) {
+  const calculateTotalScore = (score: number, num: StateType["answerdata"]) => {
+    if (num.rightAnswer === num.selectedOption) {
+      return score + 10;
+    } else if (num.selectedOption === null) {
+      return score;
+    } else {
+      return score - 5;
+    }
+  };
+  const totalScore = record.reduce(calculateTotalScore, 0);
+  return totalScore;
+}

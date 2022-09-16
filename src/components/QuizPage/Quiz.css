@@ -15,13 +15,18 @@
 .option-container {
   text-align: center;
   margin: 1rem;
+  display: flex;
+  flex-direction: column;
 }
 .option-individual {
-  background-color: rgb(66, 58, 58);
+  background-color: rgb(140, 129, 129);
   margin-top: 1rem;
   padding: 1rem 0;
   font-size: 1.2rem;
   cursor: pointer;
+}
+button.option-individual:focus {
+  background-color: rgb(51, 15, 181);
 }
 .button-container{
     margin-left: auto;

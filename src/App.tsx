@@ -4,7 +4,6 @@ import "./App.css";
 import { HomePage } from "./components/HomePage/HomePage";
 import { Instruction } from "./components/Instruction/Instruction";
 import { Quiz } from "./components/QuizPage/Quiz";
-
 const App: React.FC = () => {
   return (
     <div className="App">

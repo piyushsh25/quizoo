@@ -3,10 +3,20 @@ import { Navbar } from "../Navbar/Navbar";
 import { LocationState } from "./Instruction.type";
 import { QuizDetails } from "./QuizDetails";
 import { Rules } from "./Rules";
-
+import {useEffect} from "react"
+import { useResult } from "../../Hooks/ResultContext/ResultContext";
 export const Instruction: React.FC = () => {
   const location = useLocation();
   const { state } = location as LocationState;
+  const {setShowResult,setQuestionIndex,setScore,setSelectedOption,setRecord,setTimer}=useResult()
+  // every value being set to default in the instruction page so that the quiz cannot be resumed after quitting
+  useEffect(()=>{
+    setShowResult(false)
+    setQuestionIndex(0)
+    setScore(()=>0)
+    setSelectedOption(null)
+    setRecord(()=>[])
+  },[])
   return (
     <div>
       <Navbar />

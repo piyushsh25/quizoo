@@ -1,32 +1,45 @@
-import { QuizData, StateType } from "./Quiz.type";
+import { QuestionHandler, QuizData } from "./Quiz.type";
 import "./Quiz.css";
-import { useState } from "react";
-import { nextQuestionHandler, timeRemaining } from "./QuizController";
+import { useEffect } from "react";
+import {
+  calculateScore,
+  nextQuestionHandler,
+  timeRemaining,
+} from "./QuizController";
 import { useNavigate } from "react-router-dom";
+import { useResult } from "../../Hooks/ResultContext/ResultContext";
 
 export const QuizBody = ({ state }: QuizData) => {
   const { questions } = state;
-  const [questionIndex, setQuestionIndex] =
-    useState<StateType["questionIndex"]>(0);
-  const [score, setScore] = useState<StateType["score"]>(0);
-  const [timer, setTimer] = useState<StateType["timer"]>(300);
-  const [record, setRecord] = useState<StateType["answerdata"][]>([]);
+  const {
+    questionIndex,
+    setQuestionIndex,
+    score,
+    setScore,
+    timer,
+    setTimer,
+    record,
+    setRecord,
+    selectedOption,
+    setSelectedOption,
+    setShowResult,
+    showResult,
+  } = useResult();
   const navigate = useNavigate();
+  useEffect(() => {
+    setTimer(300);
+  }, []);
   setTimeout(() => {
     if (timer > 0) {
       setTimer(timer - 1);
     }
+    if (timer === 0) {
+      setShowResult(true);
+    }
   }, 1000);
-  const option = {
-    option: "",
-    isRight: null,
-  };
-  if (timer === 0) {
-    navigate("/result");
-  }
   return (
     <div className="quiz-body-container">
-      <div>score : {score} </div>
+      <div>score : {calculateScore(setScore, record)} </div>
       <div>
         time: {timeRemaining(timer).minutes}: {timeRemaining(timer).seconds}
       </div>
@@ -36,46 +49,60 @@ export const QuizBody = ({ state }: QuizData) => {
       <div className="option-container">
         {questions[questionIndex].options.map((option, index) => {
           return (
-            <div
+            <button
               className="option-individual"
               key={option.option}
-              onClick={() =>
-                nextQuestionHandler({
-                  option,
-                  setRecord,
-                  questions,
-                  questionIndex,
-                  setQuestionIndex,
-                  setScore,
-                  navigate,
-                  record,
-                })
-              }
+              onClick={(e) => setSelectedOption(option.option)}
             >
               {index + 1}. {option.option}
-            </div>
+            </button>
           );
         })}
       </div>
       <div className="button-container">
-       
-        <button
-          className="next-button"
-          onClick={() =>
-            nextQuestionHandler({
-              option,
-              setRecord,
-              questions,
-              questionIndex,
-              setQuestionIndex,
-              setScore,
-              navigate,
-              record,
-            })
-          }
-        >
-         {(questionIndex + 1 === questions.length )?"Submitt":"Next"}  
-        </button>
+        {!(questionIndex + 1 === questions.length) ? (
+          <button
+            className="next-button"
+            onClick={() =>
+              nextQuestionHandler({
+                setRecord,
+                questions,
+                setQuestionIndex,
+                questionIndex,
+                setScore,
+                navigate,
+                record,
+                showResult,
+                setShowResult,
+                selectedOption,
+                setSelectedOption,
+              })
+            }
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            className="next-button"
+            onClick={() =>
+              nextQuestionHandler({
+                setRecord,
+                questions,
+                setQuestionIndex,
+                questionIndex,
+                setScore,
+                navigate,
+                record,
+                showResult,
+                setShowResult,
+                selectedOption,
+                setSelectedOption,
+              })
+            }
+          >
+            Submitt
+          </button>
+        )}
       </div>
     </div>
   );
