@@ -7,14 +7,16 @@ type Children = {
 const initialState = {
   score: 0,
   questionIndex: 0,
-  timer: 0,
+  timer: 300,
   record: [],
-  selectedOption: "1qq",
+  selectedOption: null,
   setScore: () => null,
   setQuestionIndex: () => null,
   setTimer: () => null,
   setRecord: () => null,
   setSelectedOption: () => null,
+  showResult: false,
+  setShowResult: () => null,
 };
 type Context = {
   score: number;
@@ -39,6 +41,8 @@ type Context = {
   >;
   selectedOption: string | null;
   setSelectedOption: React.Dispatch<React.SetStateAction<string | null>>;
+  showResult: boolean;
+  setShowResult: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const ResultContext = createContext<Context>(initialState);
@@ -51,6 +55,7 @@ export const ResultProvider = ({ children }: Children) => {
   const [selectedOption, setSelectedOption] = useState<
     StateType["answerdata"]["selectedOption"]
   >(() => null);
+  const [showResult, setShowResult] = useState(false);
   return (
     <ResultContext.Provider
       value={{
@@ -64,6 +69,8 @@ export const ResultProvider = ({ children }: Children) => {
         setRecord,
         selectedOption,
         setSelectedOption,
+        showResult,
+        setShowResult,
       }}
     >
       {children}

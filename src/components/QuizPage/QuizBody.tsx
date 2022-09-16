@@ -1,68 +1,48 @@
-import { QuestionHandler, QuizData, StateType } from "./Quiz.type";
+import { QuestionHandler, QuizData } from "./Quiz.type";
 import "./Quiz.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   calculateScore,
   nextQuestionHandler,
   timeRemaining,
 } from "./QuizController";
 import { useNavigate } from "react-router-dom";
+import { useResult } from "../../Hooks/ResultContext/ResultContext";
 
 export const QuizBody = ({ state }: QuizData) => {
   const { questions } = state;
-  const [questionIndex, setQuestionIndex] =
-    useState<StateType["questionIndex"]>(0);
-  const [score, setScore] = useState<StateType["score"]>(0);
-  const [timer, setTimer] = useState<StateType["timer"]>(300);
-  const [record, setRecord] = useState<StateType["answerdata"][]>([]);
-  const [selectedOption, setSelectedOption] =
-    useState<StateType["answerdata"]["selectedOption"]>(null);
+  const {
+    questionIndex,
+    setQuestionIndex,
+    score,
+    setScore,
+    timer,
+    setTimer,
+    record,
+    setRecord,
+    selectedOption,
+    setSelectedOption,
+    setShowResult,
+    showResult,
+  } = useResult();
+  // const [questionIndex, setQuestionIndex] =
+  //   useState<StateType["questionIndex"]>(0);
+  // const [score, setScore] = useState<StateType["score"]>(0);
+  // const [timer, setTimer] = useState<StateType["timer"]>(300);
+  // const [record, setRecord] = useState<StateType["answerdata"][]>([]);
+  // const [selectedOption, setSelectedOption] =
+  //   useState<StateType["answerdata"]["selectedOption"]>(null);
   const navigate = useNavigate();
   setTimeout(() => {
     if (timer > 0) {
       setTimer(timer - 1);
     }
-  }, 1000);
-  if (timer === 0) {
-    navigate("/result");
-  }
-  const option = {
-    option: selectedOption,
-  };
-  const submitQuestionHandler = ({
-    option,
-    setRecord,
-    questions,
-    setQuestionIndex,
-    questionIndex,
-    setScore,
-    navigate,
-    record,
-  }: QuestionHandler) => {
-    const [correctAnswer] = questions[questionIndex].options.filter(
-      (option) => {
-        return option.isRight === true;
-      }
-    );
-    setQuestionIndex((prev)=>prev+1)
-    setRecord((prev) => {
-      return [
-        ...prev,
-        {
-          question: questions[questionIndex].question,
-          selectedOption: option.option,
-          rightAnswer: correctAnswer.option,
-        },
-      ];
-    });
-   
-  };
-  useEffect(() => {
-    if (questionIndex=== questions.length) {
-      console.log(record);
+    if (timer === 0) {
+      setShowResult(true);
     }
-  });
+  }, 1000);
 
+  console.log(record)
   return (
     <div className="quiz-body-container">
       <div>score : {calculateScore(setScore, record)} </div>
@@ -91,7 +71,7 @@ export const QuizBody = ({ state }: QuizData) => {
             className="next-button"
             onClick={() =>
               nextQuestionHandler({
-                option,
+
                 setRecord,
                 questions,
                 setQuestionIndex,
@@ -99,6 +79,10 @@ export const QuizBody = ({ state }: QuizData) => {
                 setScore,
                 navigate,
                 record,
+                showResult,
+                setShowResult,
+                selectedOption,
+                setSelectedOption
               })
             }
           >
@@ -108,8 +92,7 @@ export const QuizBody = ({ state }: QuizData) => {
           <button
             className="next-button"
             onClick={() =>
-              submitQuestionHandler({
-                option,
+              nextQuestionHandler({
                 setRecord,
                 questions,
                 setQuestionIndex,
@@ -117,6 +100,10 @@ export const QuizBody = ({ state }: QuizData) => {
                 setScore,
                 navigate,
                 record,
+                showResult,
+                setShowResult,
+                selectedOption,
+                setSelectedOption
               })
             }
           >

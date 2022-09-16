@@ -18,7 +18,6 @@ export type StateType = {
   timer: number;
 };
 export type QuestionHandler = {
-  option: StateType["option"];
   setRecord: React.Dispatch<
     React.SetStateAction<
       {
@@ -38,4 +37,8 @@ export type QuestionHandler = {
     selectedOption: string | null;
     rightAnswer:string | null
   }[];
+  showResult: boolean;
+  setShowResult: React.Dispatch<React.SetStateAction<boolean>>
+  setSelectedOption: React.Dispatch<React.SetStateAction<string| null>>
+  selectedOption:string | null
 };

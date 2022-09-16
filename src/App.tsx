@@ -4,8 +4,6 @@ import "./App.css";
 import { HomePage } from "./components/HomePage/HomePage";
 import { Instruction } from "./components/Instruction/Instruction";
 import { Quiz } from "./components/QuizPage/Quiz";
-import ResultBody from "./components/Result/ResultBody";
-
 const App: React.FC = () => {
   return (
     <div className="App">
@@ -14,7 +12,6 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/instruction" element={<Instruction />} />
           <Route path="/quiz" element={<Quiz />} />
-          <Route path="/result" element={<ResultBody/>} />
           <Route path="*" element={<h1>Error. Route not found</h1>} />
         </Routes>
       </BrowserRouter>
