@@ -32,9 +32,15 @@ export const ResultBody = ({ state }: QuizData) => {
     const answer = options.filter((option) => {
       return option.isRight === true;
     });
-    console.log(answer);
     return answer;
   }
+function userAnsuwer(question:String){
+  const findQuestion=record.find((rec)=>{
+    return rec.question===question
+  })
+  return findQuestion?.selectedOption
+
+}
   return (
     <div>
       <div className="quiz-body-container">
@@ -58,7 +64,11 @@ export const ResultBody = ({ state }: QuizData) => {
                   return <div>{option.option}</div>;
                 })}
               </div>
-
+              <div className="correct-answer-display">
+                <div>Your answer :</div>
+                
+                {userAnsuwer(question)===null?"unattempted":userAnsuwer(question)}
+              </div>
               <hr className="result-break" />
             </div>
           );
