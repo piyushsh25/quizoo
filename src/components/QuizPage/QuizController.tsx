@@ -42,7 +42,6 @@ export const nextQuestionHandler = ({
   if (questionIndex + 1 === questions.length) {
     setShowResult(true);
   }
-
   setQuestionIndex((prev) => prev + 1);
 };
 export function calculateScore(
