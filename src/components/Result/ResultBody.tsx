@@ -10,19 +10,23 @@ export const ResultBody = ({ state }: QuizData) => {
   function filteredOption(question: String, option: String) {
     let ques;
     ques = record.find((rec) => rec.question === question);
+    if (ques?.rightAnswer === option) {
+      return <div className="success">{option}</div>;
+    }
     if (
       ques?.selectedOption === option &&
       ques.rightAnswer === ques.selectedOption
     ) {
       return <div className="success">{option}</div>;
-    } else if (
+    }
+    if (
       ques?.selectedOption === option &&
       ques?.selectedOption !== ques.rightAnswer
     ) {
       return <div className="error">{option}</div>;
-    } else {
-      return <div className="null">{option}</div>;
     }
+
+    return <div className="null">{option}</div>;
   }
   function correctAnswer(options: Options[]) {
     const answer = options.filter((option) => {
@@ -54,6 +58,7 @@ export const ResultBody = ({ state }: QuizData) => {
                   return <div>{option.option}</div>;
                 })}
               </div>
+
               <hr className="result-break" />
             </div>
           );

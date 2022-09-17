@@ -81,7 +81,7 @@ export const QuizBody = ({ state }: QuizData) => {
             })
           }
         >
-          {(questionIndex + 1 === questions.length) ? "Submit" : "Next"}
+          {questionIndex + 1 === questions.length ? "Submit" : "Next"}
         </button>
       </div>
     </div>
