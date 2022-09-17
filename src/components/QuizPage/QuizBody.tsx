@@ -37,6 +37,8 @@ export const QuizBody = ({ state }: QuizData) => {
       setShowResult(true);
     }
   }, 1000);
+  console.log(record);
+  console.log(selectedOption);
   return (
     <div className="quiz-body-container">
       <div>score : {calculateScore(setScore, record)} </div>
@@ -52,7 +54,7 @@ export const QuizBody = ({ state }: QuizData) => {
             <button
               className="option-individual"
               key={option.option}
-              onClick={(e) => setSelectedOption(option.option)}
+              onClick={() => setSelectedOption(option.option)}
             >
               {index + 1}. {option.option}
             </button>
@@ -60,49 +62,27 @@ export const QuizBody = ({ state }: QuizData) => {
         })}
       </div>
       <div className="button-container">
-        {!(questionIndex + 1 === questions.length) ? (
-          <button
-            className="next-button"
-            onClick={() =>
-              nextQuestionHandler({
-                setRecord,
-                questions,
-                setQuestionIndex,
-                questionIndex,
-                setScore,
-                navigate,
-                record,
-                showResult,
-                setShowResult,
-                selectedOption,
-                setSelectedOption,
-              })
-            }
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            className="next-button"
-            onClick={() =>
-              nextQuestionHandler({
-                setRecord,
-                questions,
-                setQuestionIndex,
-                questionIndex,
-                setScore,
-                navigate,
-                record,
-                showResult,
-                setShowResult,
-                selectedOption,
-                setSelectedOption,
-              })
-            }
-          >
-            Submitt
-          </button>
-        )}
+        <button
+          type="button"
+          className="next-button"
+          onClick={() =>
+            nextQuestionHandler({
+              setRecord,
+              questions,
+              setQuestionIndex,
+              questionIndex,
+              setScore,
+              navigate,
+              record,
+              showResult,
+              setShowResult,
+              selectedOption,
+              setSelectedOption,
+            })
+          }
+        >
+          {(questionIndex + 1 === questions.length) ? "Submit" : "Next"}
+        </button>
       </div>
     </div>
   );
