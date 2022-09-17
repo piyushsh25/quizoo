@@ -37,8 +37,6 @@ export const QuizBody = ({ state }: QuizData) => {
       setShowResult(true);
     }
   }, 1000);
-  console.log(record);
-  console.log(selectedOption);
   return (
     <div className="quiz-body-container">
       <div>score : {calculateScore(setScore, record)} </div>
